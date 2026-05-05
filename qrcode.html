@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>QR Code · Porto Guide</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Georgia, serif; background: #f3efe6; min-height: 100vh; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .controls button {
+    background: #1a1200; color: #f5e6c0; border: none; border-radius: 10px;
+    padding: 10px 20px; font-family: Georgia, serif; font-size: 14px;
+    cursor: pointer; letter-spacing: 0.5px;
+  }
+  .controls button:hover { background: #3d2800; }
+
+  .card {
+    background: #1a1200;
+    color: #f5e6c0;
+    width: 360px;
+    padding: 32px 28px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    border: 2px solid #b88600;
+    page-break-inside: avoid;
+  }
+  .card .badge {
+    display: inline-block; background: #b88600; color: #1a1200;
+    font-size: 10px; font-weight: bold; letter-spacing: 2px;
+    padding: 4px 12px; border-radius: 14px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .card h1 {
+    font-size: 1.9rem; color: #f5e6c0; font-weight: normal;
+    line-height: 1.1; margin-bottom: 6px;
+  }
+  .card h1 span { color: #b88600; }
+  .card .tag {
+    font-size: 0.78rem; color: #c8b98a; letter-spacing: 0.4px;
+    margin-bottom: 22px;
+  }
+
+  .qr-frame {
+    background: #fff; border-radius: 14px; padding: 14px;
+    margin: 0 auto 18px; width: fit-content;
+  }
+  .qr-frame img, .qr-frame canvas { display: block; width: 240px; height: 240px; }
+
+  .card .url { font-size: 0.72rem; color: #c8b98a; word-break: break-all; margin-bottom: 14px; }
+  .card .driver { font-size: 0.78rem; color: #c8b98a; letter-spacing: 0.4px; }
+  .card .driver strong { color: #f5e6c0; font-weight: normal; font-size: 0.9rem; display: block; margin-top: 2px; }
+  .card .languages { margin-top: 14px; font-size: 0.7rem; color: #b88600; letter-spacing: 1.5px; }
+
+  .hint { color: #777; font-size: 0.85rem; max-width: 420px; text-align: center; line-height: 1.6; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .controls, .hint { display: none; }
+    .card { box-shadow: none; margin: 20mm auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button onclick="window.print()">Imprimir / Print</button>
+  <button onclick="downloadPng()">Guardar PNG / Save PNG</button>
+</div>
+
+<p class="hint">
+  Cartão pronto a imprimir para entregar aos passageiros — clique em <strong>Imprimir</strong> para o enviar para a impressora ou em <strong>Guardar PNG</strong> para guardar a imagem.
+</p>
+
+<div class="card" id="card">
+  <div class="badge">Porto Guide</div>
+  <h1>Welcome to<br><span>Porto</span></h1>
+  <div class="tag">Scan to open your guide</div>
+
+  <div class="qr-frame">
+    <canvas id="qr"></canvas>
+  </div>
+
+  <div class="url">barbosaberto1976-code.github.io/porto-guide</div>
+
+  <div class="driver">
+    Your driver
+    <strong>Carlos Alberto · +351 916 261 117</strong>
+  </div>
+
+  <div class="languages">EN · PT · FR</div>
+</div>
+
+<script>
+(function () {
+  var url = 'https://barbosaberto1976-code.github.io/porto-guide/';
+
+  // Generate QR code
+  var typeNumber = 0;          // auto
+  var errorCorrectionLevel = 'H';
+  var qr = qrcode(typeNumber, errorCorrectionLevel);
+  qr.addData(url);
+  qr.make();
+
+  // Render to canvas
+  var canvas = document.getElementById('qr');
+  var ctx = canvas.getContext('2d');
+  var size = 480;              // internal resolution (rendered crisp at 240px)
+  canvas.width = size; canvas.height = size;
+  var modules = qr.getModuleCount();
+  var cell = size / modules;
+
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = '#1a1200';
+  for (var r = 0; r < modules; r++) {
+    for (var c = 0; c < modules; c++) {
+      if (qr.isDark(r, c)) {
+        ctx.fillRect(Math.round(c * cell), Math.round(r * cell), Math.ceil(cell), Math.ceil(cell));
+      }
+    }
+  }
+})();
+
+function downloadPng() {
+  var canvas = document.getElementById('qr');
+  var link = document.createElement('a');
+  link.download = 'porto-guide-qrcode.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+</script>
+</body>
+</html>

@@ -50,13 +50,24 @@
 
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
 
-  .place-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; overflow: hidden; transition: border-color 0.2s; }
+  .place-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; overflow: hidden; transition: border-color 0.2s; display: flex; flex-direction: column; }
   .place-card:hover { border-color: #b8860055; }
   .place-emoji { font-size: 2rem; padding: 20px 20px 10px; display: block; }
-  .place-card .info { padding: 0 16px 18px; }
+  .place-card .info { padding: 0 16px 18px; flex: 1; display: flex; flex-direction: column; }
   .place-card h4 { font-size: 0.95rem; color: #f5e6c0; font-weight: normal; margin-bottom: 4px; }
   .place-card p { font-size: 0.8rem; color: #888; line-height: 1.5; }
   .tag { display: inline-block; margin-top: 8px; background: #b8860015; color: #b88600; font-size: 10px; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.5px; }
+
+  .maps-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; padding: 6px 12px;
+    background: #1e1400; border: 1px solid #b8860033; border-radius: 8px;
+    color: #b88600; font-size: 11px; text-decoration: none;
+    letter-spacing: 0.3px; transition: all 0.2s;
+    align-self: flex-start;
+  }
+  .maps-link:hover { background: #2a1c00; border-color: #b8860088; }
+  .maps-link::before { content: "📍"; font-size: 12px; }
 
   .rest-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; transition: border-color 0.2s; margin-bottom: 14px; }
   .rest-card:hover { border-color: #b8860055; }
@@ -80,7 +91,7 @@
   .cave-card h4 { font-size: 1rem; color: #f5e6c0; font-weight: normal; margin-bottom: 3px; }
   .cave-card .founded { font-size: 0.75rem; color: #b88600; letter-spacing: 1px; text-transform: uppercase; }
   .cave-card p { font-size: 0.8rem; color: #888; line-height: 1.6; margin-bottom: 10px; }
-  .cave-details { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cave-details { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
   .cave-detail { background: #1e1400; border: 1px solid #b8860022; border-radius: 8px; padding: 4px 10px; font-size: 11px; color: #c8b98a; }
 
   .tip-box { background: #1e1400; border: 1px solid #b8860033; border-left: 3px solid #b88600; border-radius: 0 12px 12px 0; padding: 16px 20px; margin-top: 16px; }
@@ -95,14 +106,24 @@
 
   .divider { border: none; border-top: 1px solid #ffffff08; margin: 0; }
   .footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #555; }
+
+  .lang-switcher { position: absolute; top: 16px; right: 16px; display: flex; gap: 4px; background: #1e1400; border: 1px solid #b8860033; border-radius: 20px; padding: 3px; }
+  .lang-switcher a { font-size: 11px; padding: 5px 10px; color: #c8b98a; text-decoration: none; border-radius: 16px; letter-spacing: 1px; font-weight: bold; }
+  .lang-switcher a.active { background: #b88600; color: #1a1200; }
+  .hero { position: relative; }
 </style>
 </head>
 <body>
 
 <div class="hero">
+  <div class="lang-switcher">
+    <a href="index.html" class="active">EN</a>
+    <a href="pt.html">PT</a>
+    <a href="fr.html">FR</a>
+  </div>
   <div class="hero-badge">Your personal guide</div>
   <h1>Welcome to<br><span>Porto</span></h1>
-  <p>I'm glad to have you here. This page has everything you need to enjoy the best of Porto and surroundings — landmarks, restaurants and wine cellars.</p>
+  <p>I'm glad to have you here. This page has everything you need to enjoy the best of Porto and surroundings — landmarks, restaurants and wine cellars. Tap any 📍 to open the location in Google Maps.</p>
   <div class="contact-card">
     <div class="avatar">CA</div>
     <div class="contact-info">
@@ -128,13 +149,65 @@
 <section>
   <p class="section-label">Must-see</p>
   <h2 class="section-title">Iconic Places in Porto</h2>
+  <p class="section-sub">From the riverside lanes of Ribeira to the cathedral on the hill — here are the places not to miss.</p>
   <div class="cards-grid">
-    <div class="place-card"><span class="place-emoji">⛵</span><div class="info"><h4>Ribeira</h4><p>Porto's soul — colourful houses along the Douro riverside. Perfect at sunset.</p><span class="tag">UNESCO Heritage</span></div></div>
-    <div class="place-card"><span class="place-emoji">🔔</span><div class="info"><h4>Torre dos Clérigos</h4><p>Baroque tower with panoramic views over the whole city. Climb for the best photo.</p><span class="tag">City View</span></div></div>
-    <div class="place-card"><span class="place-emoji">📚</span><div class="info"><h4>Livraria Lello</h4><p>One of the most beautiful bookshops in the world. A must for book lovers.</p><span class="tag">Book ahead</span></div></div>
-    <div class="place-card"><span class="place-emoji">🌉</span><div class="info"><h4>Ponte Luís I</h4><p>Iconic double-deck iron bridge. Walk the upper level for stunning river views.</p><span class="tag">Free access</span></div></div>
-    <div class="place-card"><span class="place-emoji">🏛️</span><div class="info"><h4>Palácio da Bolsa</h4><p>Stunning 19th-century stock exchange with the magnificent Arab Room inside.</p><span class="tag">Guided tours</span></div></div>
-    <div class="place-card"><span class="place-emoji">🚃</span><div class="info"><h4>São Bento Station</h4><p>More than a train station — 20,000 azulejo tiles telling Portuguese history.</p><span class="tag">Free entry</span></div></div>
+
+    <div class="place-card"><span class="place-emoji">⛵</span><div class="info">
+      <h4>Ribeira</h4>
+      <p>Porto's soul — colourful houses along the Douro riverside. Perfect at sunset.</p>
+      <span class="tag">UNESCO Heritage</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ribeira+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">⛪</span><div class="info">
+      <h4>Sé do Porto</h4>
+      <p>The 12th-century cathedral on the hill. Romanesque façade, Gothic cloister and one of the best terrace views over the old town.</p>
+      <span class="tag">Historic landmark</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=S%C3%A9+do+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">🔔</span><div class="info">
+      <h4>Igreja e Torre dos Clérigos</h4>
+      <p>Baroque church and 75 m bell tower with panoramic views over the whole city. Climb to the top for the best photo.</p>
+      <span class="tag">City View</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Torre+dos+Cl%C3%A9rigos+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">🥬</span><div class="info">
+      <h4>Mercado do Bolhão</h4>
+      <p>Porto's iconic 19th-century market, beautifully restored. Fresh fish, flowers, smoked meats and small tasting counters — a true taste of the city.</p>
+      <span class="tag">Local life</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Mercado+do+Bolh%C3%A3o+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">📚</span><div class="info">
+      <h4>Livraria Lello</h4>
+      <p>One of the most beautiful bookshops in the world. A must for book lovers — buy your ticket online to skip the queue.</p>
+      <span class="tag">Book ahead</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Livraria+Lello+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">🌉</span><div class="info">
+      <h4>Ponte Luís I</h4>
+      <p>Iconic double-deck iron bridge. Walk the upper level for stunning river views over Porto and Gaia.</p>
+      <span class="tag">Free access</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ponte+Lu%C3%ADs+I+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">🏛️</span><div class="info">
+      <h4>Palácio da Bolsa</h4>
+      <p>Stunning 19th-century stock exchange with the magnificent Arab Room inside. Visit by guided tour.</p>
+      <span class="tag">Guided tours</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Pal%C3%A1cio+da+Bolsa+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
+    <div class="place-card"><span class="place-emoji">🚃</span><div class="info">
+      <h4>São Bento Station</h4>
+      <p>More than a train station — 20,000 azulejo tiles telling Portuguese history.</p>
+      <span class="tag">Free entry</span>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=S%C3%A3o+Bento+Station+Porto" target="_blank" rel="noopener">Open in Maps</a>
+    </div></div>
+
   </div>
 </section>
 </div>
@@ -145,10 +218,35 @@
   <p class="section-label">Where to eat</p>
   <h2 class="section-title">Restaurants in Porto</h2>
   <p class="section-sub">From the iconic francesinha to fine dining — Porto's food scene has something for every taste and budget.</p>
-  <div class="rest-card"><div class="rest-icon">🥩</div><div><h4>Café Santiago</h4><p>The home of the legendary <em>francesinha</em> — Porto's iconic sandwich. A mandatory experience.</p><div class="rest-tags"><span class="t-local">Local classic</span><span class="t-budget">Mid-range</span></div></div></div>
-  <div class="rest-card"><div class="rest-icon">🍷</div><div><h4>Adega São Nicolau</h4><p>Traditional Portuguese petiscos in the heart of Ribeira. Try the bacalhau and pair with local wine.</p><div class="rest-tags"><span class="t-local">Traditional</span><span class="t-wine">Great wine</span></div></div></div>
-  <div class="rest-card"><div class="rest-icon">🐟</div><div><h4>DOP by Rui Paula</h4><p>Modern Portuguese cuisine inside the Palácio das Artes. Refined, seasonal and unforgettable.</p><div class="rest-tags"><span class="t-premium">Fine dining</span><span class="t-local">Portuguese</span></div></div></div>
-  <div class="rest-card"><div class="rest-icon">☕</div><div><h4>Majestic Café</h4><p>Historic art nouveau café open since 1921. Have a coffee and a pastel de nata in style.</p><div class="rest-tags"><span class="t-local">Historic</span><span class="t-budget">Café</span></div></div></div>
+
+  <div class="rest-card"><div class="rest-icon">🥩</div><div style="flex:1">
+    <h4>Café Santiago</h4>
+    <p>The home of the legendary <em>francesinha</em> — Porto's iconic sandwich. A mandatory experience.</p>
+    <div class="rest-tags"><span class="t-local">Local classic</span><span class="t-budget">Mid-range</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+Santiago+Porto" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🍷</div><div style="flex:1">
+    <h4>Adega São Nicolau</h4>
+    <p>Traditional Portuguese petiscos in the heart of Ribeira. Try the bacalhau and pair with local wine.</p>
+    <div class="rest-tags"><span class="t-local">Traditional</span><span class="t-wine">Great wine</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Adega+S%C3%A3o+Nicolau+Porto" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🐟</div><div style="flex:1">
+    <h4>DOP by Rui Paula</h4>
+    <p>Modern Portuguese cuisine inside the Palácio das Artes. Refined, seasonal and unforgettable.</p>
+    <div class="rest-tags"><span class="t-premium">Fine dining</span><span class="t-local">Portuguese</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=DOP+Rui+Paula+Porto" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">☕</div><div style="flex:1">
+    <h4>Majestic Café</h4>
+    <p>Historic art nouveau café open since 1921. Have a coffee and a pastel de nata in style.</p>
+    <div class="rest-tags"><span class="t-local">Historic</span><span class="t-budget">Café</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Majestic+Caf%C3%A9+Porto" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
   <div class="tip-box"><p>💡 <strong>Local tip:</strong> Always ask for the <em>prato do dia</em> (dish of the day) — it's usually the freshest, most authentic and best value option on the menu.</p></div>
 </section>
 </div>
@@ -158,13 +256,54 @@
 <section>
   <p class="section-label">Seaside dining</p>
   <h2 class="section-title">Matosinhos</h2>
-  <p class="section-sub">Just 10 minutes from Porto city centre, Matosinhos is Portugal's seafood capital. The fish comes straight from the Atlantic, grilled over charcoal right outside the restaurants.</p>
+  <p class="section-sub">Just 10 minutes from Porto city centre, Matosinhos is Portugal's seafood capital. The fish comes straight from the Atlantic and is grilled over charcoal right outside the restaurants — most famously along <strong>Rua Heróis de França</strong>, the legendary "grill street" right by the beach.</p>
   <div class="area-badge">📍 ~10 min from Porto · Atlantic seafood</div>
-  <div class="rest-card"><div class="rest-icon">🐙</div><div><h4>Restaurante Gavina</h4><p>One of Matosinhos' most beloved seafood restaurants. Famous for grilled fish, octopus salad and fresh seafood rice.</p><div class="rest-tags"><span class="t-seafood">Seafood</span><span class="t-local">Local favourite</span></div></div></div>
-  <div class="rest-card"><div class="rest-icon">🦐</div><div><h4>O Lusitano</h4><p>A true local classic — generous portions of grilled sardines, sea bass and shellfish at honest prices. Always busy at lunch.</p><div class="rest-tags"><span class="t-seafood">Grilled fish</span><span class="t-budget">Good value</span></div></div></div>
-  <div class="rest-card"><div class="rest-icon">🦀</div><div><h4>Churrasqueira Alecrim</h4><p>Charcoal-grilled fish right on Rua Heróis de França — the famous "restaurant street" of Matosinhos. Pick your fish fresh.</p><div class="rest-tags"><span class="t-fresh">Fresh catch</span><span class="t-local">Traditional</span></div></div></div>
-  <div class="rest-card"><div class="rest-icon">🌊</div><div><h4>Sea Me (Matosinhos)</h4><p>Contemporary take on Portuguese seafood. Creative dishes, excellent wine list and a modern atmosphere.</p><div class="rest-tags"><span class="t-premium">Contemporary</span><span class="t-seafood">Seafood</span></div></div></div>
-  <div class="tip-box"><p>🐟 <strong>Best time to visit:</strong> Come for lunch on a weekday to avoid queues. Walk along Rua Heróis de França and pick the restaurant with the most locals — that's always a good sign. Don't leave without trying <em>percebes</em> (barnacles) if they're available!</p></div>
+
+  <div class="rest-card"><div class="rest-icon">🐙</div><div style="flex:1">
+    <h4>Restaurante Gavina</h4>
+    <p>One of Matosinhos' most beloved seafood restaurants. Famous for grilled fish, octopus salad and fresh seafood rice.</p>
+    <div class="rest-tags"><span class="t-seafood">Seafood</span><span class="t-local">Local favourite</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Gavina+Matosinhos" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🦐</div><div style="flex:1">
+    <h4>O Lusitano</h4>
+    <p>A true local classic — generous portions of grilled sardines, sea bass and shellfish at honest prices. Always busy at lunch.</p>
+    <div class="rest-tags"><span class="t-seafood">Grilled fish</span><span class="t-budget">Good value</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=O+Lusitano+Matosinhos" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🔥</div><div style="flex:1">
+    <h4>Salta o Muro</h4>
+    <p>Family-run charcoal grill on Rua Heróis de França. Small, simple, packed with locals — order whatever fish is fresh that day.</p>
+    <div class="rest-tags"><span class="t-fresh">Charcoal grill</span><span class="t-local">Local favourite</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Salta+o+Muro+Matosinhos" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🐟</div><div style="flex:1">
+    <h4>Tito</h4>
+    <p>An institution near the Matosinhos beach. Tiny, no fuss — just incredible grilled fish, fresh shellfish and a glass of vinho verde.</p>
+    <div class="rest-tags"><span class="t-seafood">Seafood</span><span class="t-local">Tiny & beloved</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Tito+Matosinhos" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🦀</div><div style="flex:1">
+    <h4>Marisqueira Antiga</h4>
+    <p>Charcoal-grilled fish right on Rua Heróis de França — pick your fish from the counter. Honest portions and a warm family welcome.</p>
+    <div class="rest-tags"><span class="t-fresh">Fresh catch</span><span class="t-local">Traditional</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Marisqueira+Antiga+Matosinhos" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="rest-card"><div class="rest-icon">🌊</div><div style="flex:1">
+    <h4>Sea Me (Matosinhos)</h4>
+    <p>Contemporary take on Portuguese seafood. Creative dishes, excellent wine list and a modern atmosphere.</p>
+    <div class="rest-tags"><span class="t-premium">Contemporary</span><span class="t-seafood">Seafood</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Sea+Me+Matosinhos" target="_blank" rel="noopener">Open in Maps</a>
+  </div></div>
+
+  <div class="tip-box"><p>🐟 <strong>Best time to visit:</strong> Come for lunch on a weekday to avoid queues. Walk along <strong>Rua Heróis de França</strong> and pick the restaurant with the most locals — that's always a good sign. Don't leave without trying <em>percebes</em> (barnacles) if they're available!</p></div>
+
+  <div class="tip-box" style="margin-top:14px"><p>📍 <a class="maps-link" style="margin:0" href="https://www.google.com/maps/search/?api=1&query=Rua+Her%C3%B3is+de+Fran%C3%A7a+Matosinhos" target="_blank" rel="noopener">Find Rua Heróis de França</a></p></div>
 </section>
 </div>
 
@@ -176,13 +315,33 @@
   <p class="section-sub">Just across the Douro river from Porto, Vila Nova de Gaia is home to the world's finest Port wine cellars. Take a guided tour, taste the wines and enjoy breathtaking views of the river.</p>
   <div class="area-badge">📍 Vila Nova de Gaia · Across Ponte Luís I</div>
 
-  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🍾</div><div><h4>Graham's 1890</h4><div class="founded">Est. 1820</div></div></div><p>Perched on the hillside with one of the best views over Porto. Superb cellar tours and a fantastic restaurant on site.</p><div class="cave-details"><span class="cave-detail">Cellar tour + tasting</span><span class="cave-detail">Restaurant</span><span class="cave-detail">Panoramic views</span></div></div>
+  <div class="cave-card">
+    <div class="cave-header"><div class="cave-icon">🍾</div><div><h4>Graham's 1890</h4><div class="founded">Est. 1820</div></div></div>
+    <p>Perched on the hillside with one of the best views over Porto. Superb cellar tours and a fantastic restaurant on site.</p>
+    <div class="cave-details"><span class="cave-detail">Cellar tour + tasting</span><span class="cave-detail">Restaurant</span><span class="cave-detail">Panoramic views</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Graham%27s+Port+Lodge+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Open in Maps</a>
+  </div>
 
-  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🏆</div><div><h4>Taylor's</h4><div class="founded">Est. 1692</div></div></div><p>One of the oldest and most prestigious Port wine houses. Stunning hilltop location, elegant tasting rooms and exceptional Vintage Ports.</p><div class="cave-details"><span class="cave-detail">Guided tour</span><span class="cave-detail">Wine bar</span><span class="cave-detail">Historic cellars</span></div></div>
+  <div class="cave-card">
+    <div class="cave-header"><div class="cave-icon">🏆</div><div><h4>Taylor's</h4><div class="founded">Est. 1692</div></div></div>
+    <p>One of the oldest and most prestigious Port wine houses. Stunning hilltop location, elegant tasting rooms and exceptional Vintage Ports.</p>
+    <div class="cave-details"><span class="cave-detail">Guided tour</span><span class="cave-detail">Wine bar</span><span class="cave-detail">Historic cellars</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Taylor%27s+Port+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Open in Maps</a>
+  </div>
 
-  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🎭</div><div><h4>Sandeman</h4><div class="founded">Est. 1790</div></div></div><p>The most iconic cellar in Gaia, recognised worldwide by its caped Don logo. Excellent guided tours and interactive museum.</p><div class="cave-details"><span class="cave-detail">Museum</span><span class="cave-detail">Multiple tastings</span><span class="cave-detail">Great for beginners</span></div></div>
+  <div class="cave-card">
+    <div class="cave-header"><div class="cave-icon">🎭</div><div><h4>Sandeman</h4><div class="founded">Est. 1790</div></div></div>
+    <p>The most iconic cellar in Gaia, recognised worldwide by its caped Don logo. Excellent guided tours and interactive museum.</p>
+    <div class="cave-details"><span class="cave-detail">Museum</span><span class="cave-detail">Multiple tastings</span><span class="cave-detail">Great for beginners</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Sandeman+Cellars+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Open in Maps</a>
+  </div>
 
-  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🌿</div><div><h4>Ramos Pinto</h4><div class="founded">Est. 1880</div></div></div><p>Known for its art nouveau posters and beautiful museum. A more intimate experience with excellent Ruby and Tawny Ports.</p><div class="cave-details"><span class="cave-detail">Art museum</span><span class="cave-detail">Intimate tour</span><span class="cave-detail">Riverside location</span></div></div>
+  <div class="cave-card">
+    <div class="cave-header"><div class="cave-icon">🌿</div><div><h4>Ramos Pinto</h4><div class="founded">Est. 1880</div></div></div>
+    <p>Known for its art nouveau posters and beautiful museum. A more intimate experience with excellent Ruby and Tawny Ports.</p>
+    <div class="cave-details"><span class="cave-detail">Art museum</span><span class="cave-detail">Intimate tour</span><span class="cave-detail">Riverside location</span></div>
+    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ramos+Pinto+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Open in Maps</a>
+  </div>
 
   <div class="tip-box"><p>🍷 <strong>Local tip:</strong> Book your cellar tour online in advance — the best slots fill up quickly. After the tour, walk the Gaia riverside and enjoy a glass of Port with views of Porto — magical at sunset.</p></div>
 </section>

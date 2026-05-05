@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Porto</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Georgia, serif; background: #0a0a0a; color: #f0ece4; min-height: 100vh; }
+
+  .hero {
+    background: linear-gradient(160deg, #1a1200 0%, #3d2800 50%, #1a1200 100%);
+    padding: 60px 24px 48px;
+    text-align: center;
+    border-bottom: 1px solid #b8860022;
+  }
+  .hero-badge {
+    display: inline-block; background: #b88600; color: #1a1200;
+    font-size: 11px; font-weight: bold; letter-spacing: 2px;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 7vw, 3.8rem); color: #f5e6c0; font-weight: normal; line-height: 1.15; margin-bottom: 12px; }
+  .hero h1 span { color: #b88600; }
+  .hero p { font-size: 1.05rem; color: #c8b98a; max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
+
+  .contact-card {
+    background: #1e1400; border: 1px solid #b8860033; border-radius: 16px;
+    padding: 20px 24px; max-width: 340px; margin: 0 auto;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; background: #b88600; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; color: #1a1200; flex-shrink: 0; }
+  .contact-info p { font-size: 0.78rem; color: #c8b98a; letter-spacing: 0.5px; text-transform: uppercase; }
+  .contact-info h3 { font-size: 1.05rem; color: #f5e6c0; font-weight: normal; margin: 2px 0 8px; }
+  .contact-btns { display: flex; gap: 8px; }
+  .btn-wa { background: #25d366; color: #fff; border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn-call { background: transparent; color: #b88600; border: 1px solid #b8860055; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; text-decoration: none; display: inline-block; }
+
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid #ffffff10; padding: 0 20px; max-width: 720px; margin: 0 auto; overflow-x: auto; }
+  .tab-btn { background: none; border: none; color: #888; font-family: Georgia, serif; font-size: 0.9rem; padding: 14px 20px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s; }
+  .tab-btn.active { color: #b88600; border-bottom-color: #b88600; }
+  .tab-btn:hover { color: #c8b98a; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  section { padding: 40px 20px; max-width: 720px; margin: 0 auto; }
+  .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #b88600; margin-bottom: 8px; }
+  .section-title { font-size: 1.6rem; color: #f5e6c0; font-weight: normal; margin-bottom: 6px; }
+  .section-sub { font-size: 0.85rem; color: #888; margin-bottom: 28px; line-height: 1.6; }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+  .place-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; overflow: hidden; transition: border-color 0.2s; }
+  .place-card:hover { border-color: #b8860055; }
+  .place-emoji { font-size: 2rem; padding: 20px 20px 10px; display: block; }
+  .place-card .info { padding: 0 16px 18px; }
+  .place-card h4 { font-size: 0.95rem; color: #f5e6c0; font-weight: normal; margin-bottom: 4px; }
+  .place-card p { font-size: 0.8rem; color: #888; line-height: 1.5; }
+  .tag { display: inline-block; margin-top: 8px; background: #b8860015; color: #b88600; font-size: 10px; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.5px; }
+
+  .rest-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; transition: border-color 0.2s; margin-bottom: 14px; }
+  .rest-card:hover { border-color: #b8860055; }
+  .rest-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .rest-card h4 { font-size: 0.95rem; color: #f5e6c0; font-weight: normal; margin-bottom: 3px; }
+  .rest-card p { font-size: 0.8rem; color: #888; line-height: 1.5; }
+  .rest-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .rest-tags span { font-size: 10px; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; }
+  .t-local { background: #b8860015; color: #b88600; }
+  .t-seafood { background: #1a3a4a; color: #5ab4d6; }
+  .t-budget { background: #1a3a1a; color: #6bc96b; }
+  .t-premium { background: #3a1a2a; color: #d68fb4; }
+  .t-wine { background: #2a1a1a; color: #d48484; }
+  .t-cave { background: #2a1a3a; color: #b48fd4; }
+  .t-fresh { background: #1a2a3a; color: #6baed6; }
+
+  .cave-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; padding: 20px; margin-bottom: 14px; transition: border-color 0.2s; }
+  .cave-card:hover { border-color: #b8860055; }
+  .cave-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+  .cave-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .cave-card h4 { font-size: 1rem; color: #f5e6c0; font-weight: normal; margin-bottom: 3px; }
+  .cave-card .founded { font-size: 0.75rem; color: #b88600; letter-spacing: 1px; text-transform: uppercase; }
+  .cave-card p { font-size: 0.8rem; color: #888; line-height: 1.6; margin-bottom: 10px; }
+  .cave-details { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cave-detail { background: #1e1400; border: 1px solid #b8860022; border-radius: 8px; padding: 4px 10px; font-size: 11px; color: #c8b98a; }
+
+  .tip-box { background: #1e1400; border: 1px solid #b8860033; border-left: 3px solid #b88600; border-radius: 0 12px 12px 0; padding: 16px 20px; margin-top: 16px; }
+  .tip-box p { font-size: 0.85rem; color: #c8b98a; line-height: 1.7; }
+
+  .area-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e1400; border: 1px solid #b8860033; border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #b88600; margin-bottom: 20px; }
+
+  .return-section { background: #1a1400; border-top: 1px solid #b8860022; padding: 40px 24px; text-align: center; }
+  .return-section h3 { font-size: 1.3rem; color: #f5e6c0; font-weight: normal; margin-bottom: 10px; }
+  .return-section p { color: #888; font-size: 0.9rem; margin-bottom: 20px; }
+  .btn-return { display: inline-block; background: #b88600; color: #1a1200; border-radius: 10px; padding: 12px 28px; font-size: 0.95rem; text-decoration: none; font-family: Georgia, serif; }
+
+  .divider { border: none; border-top: 1px solid #ffffff08; margin: 0; }
+  .footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #555; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Your personal guide</div>
+  <h1>Welcome to<br><span>Porto</span></h1>
+  <p>I'm glad to have you here. This page has everything you need to enjoy the best of Porto and surroundings — landmarks, restaurants and wine cellars.</p>
+  <div class="contact-card">
+    <div class="avatar">CA</div>
+    <div class="contact-info">
+      <p>Your driver</p>
+      <h3>Carlos Alberto</h3>
+      <div class="contact-btns">
+        <a class="btn-wa" href="https://wa.me/351916261117" target="_blank">WhatsApp</a>
+        <a class="btn-call" href="tel:+351916261117">Call</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('sights',this)">Sights</button>
+  <button class="tab-btn" onclick="showTab('restaurants',this)">Restaurants</button>
+  <button class="tab-btn" onclick="showTab('matosinhos',this)">Matosinhos</button>
+  <button class="tab-btn" onclick="showTab('caves',this)">Wine Cellars</button>
+</div>
+
+<!-- SIGHTS -->
+<div id="tab-sights" class="tab-content active">
+<section>
+  <p class="section-label">Must-see</p>
+  <h2 class="section-title">Iconic Places in Porto</h2>
+  <div class="cards-grid">
+    <div class="place-card"><span class="place-emoji">⛵</span><div class="info"><h4>Ribeira</h4><p>Porto's soul — colourful houses along the Douro riverside. Perfect at sunset.</p><span class="tag">UNESCO Heritage</span></div></div>
+    <div class="place-card"><span class="place-emoji">🔔</span><div class="info"><h4>Torre dos Clérigos</h4><p>Baroque tower with panoramic views over the whole city. Climb for the best photo.</p><span class="tag">City View</span></div></div>
+    <div class="place-card"><span class="place-emoji">📚</span><div class="info"><h4>Livraria Lello</h4><p>One of the most beautiful bookshops in the world. A must for book lovers.</p><span class="tag">Book ahead</span></div></div>
+    <div class="place-card"><span class="place-emoji">🌉</span><div class="info"><h4>Ponte Luís I</h4><p>Iconic double-deck iron bridge. Walk the upper level for stunning river views.</p><span class="tag">Free access</span></div></div>
+    <div class="place-card"><span class="place-emoji">🏛️</span><div class="info"><h4>Palácio da Bolsa</h4><p>Stunning 19th-century stock exchange with the magnificent Arab Room inside.</p><span class="tag">Guided tours</span></div></div>
+    <div class="place-card"><span class="place-emoji">🚃</span><div class="info"><h4>São Bento Station</h4><p>More than a train station — 20,000 azulejo tiles telling Portuguese history.</p><span class="tag">Free entry</span></div></div>
+  </div>
+</section>
+</div>
+
+<!-- RESTAURANTS PORTO -->
+<div id="tab-restaurants" class="tab-content">
+<section>
+  <p class="section-label">Where to eat</p>
+  <h2 class="section-title">Restaurants in Porto</h2>
+  <p class="section-sub">From the iconic francesinha to fine dining — Porto's food scene has something for every taste and budget.</p>
+  <div class="rest-card"><div class="rest-icon">🥩</div><div><h4>Café Santiago</h4><p>The home of the legendary <em>francesinha</em> — Porto's iconic sandwich. A mandatory experience.</p><div class="rest-tags"><span class="t-local">Local classic</span><span class="t-budget">Mid-range</span></div></div></div>
+  <div class="rest-card"><div class="rest-icon">🍷</div><div><h4>Adega São Nicolau</h4><p>Traditional Portuguese petiscos in the heart of Ribeira. Try the bacalhau and pair with local wine.</p><div class="rest-tags"><span class="t-local">Traditional</span><span class="t-wine">Great wine</span></div></div></div>
+  <div class="rest-card"><div class="rest-icon">🐟</div><div><h4>DOP by Rui Paula</h4><p>Modern Portuguese cuisine inside the Palácio das Artes. Refined, seasonal and unforgettable.</p><div class="rest-tags"><span class="t-premium">Fine dining</span><span class="t-local">Portuguese</span></div></div></div>
+  <div class="rest-card"><div class="rest-icon">☕</div><div><h4>Majestic Café</h4><p>Historic art nouveau café open since 1921. Have a coffee and a pastel de nata in style.</p><div class="rest-tags"><span class="t-local">Historic</span><span class="t-budget">Café</span></div></div></div>
+  <div class="tip-box"><p>💡 <strong>Local tip:</strong> Always ask for the <em>prato do dia</em> (dish of the day) — it's usually the freshest, most authentic and best value option on the menu.</p></div>
+</section>
+</div>
+
+<!-- MATOSINHOS -->
+<div id="tab-matosinhos" class="tab-content">
+<section>
+  <p class="section-label">Seaside dining</p>
+  <h2 class="section-title">Matosinhos</h2>
+  <p class="section-sub">Just 10 minutes from Porto city centre, Matosinhos is Portugal's seafood capital. The fish comes straight from the Atlantic, grilled over charcoal right outside the restaurants.</p>
+  <div class="area-badge">📍 ~10 min from Porto · Atlantic seafood</div>
+  <div class="rest-card"><div class="rest-icon">🐙</div><div><h4>Restaurante Gavina</h4><p>One of Matosinhos' most beloved seafood restaurants. Famous for grilled fish, octopus salad and fresh seafood rice.</p><div class="rest-tags"><span class="t-seafood">Seafood</span><span class="t-local">Local favourite</span></div></div></div>
+  <div class="rest-card"><div class="rest-icon">🦐</div><div><h4>O Lusitano</h4><p>A true local classic — generous portions of grilled sardines, sea bass and shellfish at honest prices. Always busy at lunch.</p><div class="rest-tags"><span class="t-seafood">Grilled fish</span><span class="t-budget">Good value</span></div></div></div>
+  <div class="rest-card"><div class="rest-icon">🦀</div><div><h4>Churrasqueira Alecrim</h4><p>Charcoal-grilled fish right on Rua Heróis de França — the famous "restaurant street" of Matosinhos. Pick your fish fresh.</p><div class="rest-tags"><span class="t-fresh">Fresh catch</span><span class="t-local">Traditional</span></div></div></div>
+  <div class="rest-card"><div class="rest-icon">🌊</div><div><h4>Sea Me (Matosinhos)</h4><p>Contemporary take on Portuguese seafood. Creative dishes, excellent wine list and a modern atmosphere.</p><div class="rest-tags"><span class="t-premium">Contemporary</span><span class="t-seafood">Seafood</span></div></div></div>
+  <div class="tip-box"><p>🐟 <strong>Best time to visit:</strong> Come for lunch on a weekday to avoid queues. Walk along Rua Heróis de França and pick the restaurant with the most locals — that's always a good sign. Don't leave without trying <em>percebes</em> (barnacles) if they're available!</p></div>
+</section>
+</div>
+
+<!-- CAVES -->
+<div id="tab-caves" class="tab-content">
+<section>
+  <p class="section-label">Vila Nova de Gaia</p>
+  <h2 class="section-title">Port Wine Cellars</h2>
+  <p class="section-sub">Just across the Douro river from Porto, Vila Nova de Gaia is home to the world's finest Port wine cellars. Take a guided tour, taste the wines and enjoy breathtaking views of the river.</p>
+  <div class="area-badge">📍 Vila Nova de Gaia · Across Ponte Luís I</div>
+
+  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🍾</div><div><h4>Graham's 1890</h4><div class="founded">Est. 1820</div></div></div><p>Perched on the hillside with one of the best views over Porto. Superb cellar tours and a fantastic restaurant on site.</p><div class="cave-details"><span class="cave-detail">Cellar tour + tasting</span><span class="cave-detail">Restaurant</span><span class="cave-detail">Panoramic views</span></div></div>
+
+  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🏆</div><div><h4>Taylor's</h4><div class="founded">Est. 1692</div></div></div><p>One of the oldest and most prestigious Port wine houses. Stunning hilltop location, elegant tasting rooms and exceptional Vintage Ports.</p><div class="cave-details"><span class="cave-detail">Guided tour</span><span class="cave-detail">Wine bar</span><span class="cave-detail">Historic cellars</span></div></div>
+
+  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🎭</div><div><h4>Sandeman</h4><div class="founded">Est. 1790</div></div></div><p>The most iconic cellar in Gaia, recognised worldwide by its caped Don logo. Excellent guided tours and interactive museum.</p><div class="cave-details"><span class="cave-detail">Museum</span><span class="cave-detail">Multiple tastings</span><span class="cave-detail">Great for beginners</span></div></div>
+
+  <div class="cave-card"><div class="cave-header"><div class="cave-icon">🌿</div><div><h4>Ramos Pinto</h4><div class="founded">Est. 1880</div></div></div><p>Known for its art nouveau posters and beautiful museum. A more intimate experience with excellent Ruby and Tawny Ports.</p><div class="cave-details"><span class="cave-detail">Art museum</span><span class="cave-detail">Intimate tour</span><span class="cave-detail">Riverside location</span></div></div>
+
+  <div class="tip-box"><p>🍷 <strong>Local tip:</strong> Book your cellar tour online in advance — the best slots fill up quickly. After the tour, walk the Gaia riverside and enjoy a glass of Port with views of Porto — magical at sunset.</p></div>
+</section>
+</div>
+
+<hr class="divider">
+<div class="return-section">
+  <h3>Need a ride?</h3>
+  <p>Porto · Matosinhos · Gaia · Airport — I'm available throughout your stay.</p>
+  <a class="btn-return" href="https://wa.me/351916261117?text=Hello%20Carlos%2C%20I'd%20like%20to%20book%20a%20transfer." target="_blank">Book via WhatsApp</a>
+</div>
+<div class="footer">Made with care for my passengers &nbsp;·&nbsp; Carlos Alberto &nbsp;·&nbsp; Porto, Portugal</div>
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

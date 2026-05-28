@@ -3,364 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bem-vindo ao Porto</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Georgia, serif; background: #0a0a0a; color: #f0ece4; min-height: 100vh; }
-
-  .hero {
-    background: linear-gradient(160deg, #1a1200 0%, #3d2800 50%, #1a1200 100%);
-    padding: 60px 24px 48px;
-    text-align: center;
-    border-bottom: 1px solid #b8860022;
-    position: relative;
-  }
-  .hero-badge {
-    display: inline-block; background: #b88600; color: #1a1200;
-    font-size: 11px; font-weight: bold; letter-spacing: 2px;
-    padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; text-transform: uppercase;
-  }
-  .hero h1 { font-size: clamp(2.2rem, 7vw, 3.8rem); color: #f5e6c0; font-weight: normal; line-height: 1.15; margin-bottom: 12px; }
-  .hero h1 span { color: #b88600; }
-  .hero p { font-size: 1.05rem; color: #c8b98a; max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
-
-  .contact-card {
-    background: #1e1400; border: 1px solid #b8860033; border-radius: 16px;
-    padding: 20px 24px; max-width: 340px; margin: 0 auto;
-    display: flex; align-items: center; gap: 16px;
-  }
-  .avatar { width: 52px; height: 52px; border-radius: 50%; background: #b88600; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; color: #1a1200; flex-shrink: 0; }
-  .contact-info p { font-size: 0.78rem; color: #c8b98a; letter-spacing: 0.5px; text-transform: uppercase; }
-  .contact-info h3 { font-size: 1.05rem; color: #f5e6c0; font-weight: normal; margin: 2px 0 8px; }
-  .contact-btns { display: flex; gap: 8px; }
-  .btn-wa { background: #25d366; color: #fff; border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; text-decoration: none; display: inline-block; }
-  .btn-call { background: transparent; color: #b88600; border: 1px solid #b8860055; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; text-decoration: none; display: inline-block; }
-
-  .tabs { display: flex; gap: 0; border-bottom: 1px solid #ffffff10; padding: 0 20px; max-width: 720px; margin: 0 auto; overflow-x: auto; }
-  .tab-btn { background: none; border: none; color: #888; font-family: Georgia, serif; font-size: 0.9rem; padding: 14px 20px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s; }
-  .tab-btn.active { color: #b88600; border-bottom-color: #b88600; }
-  .tab-btn:hover { color: #c8b98a; }
-
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  section { padding: 40px 20px; max-width: 720px; margin: 0 auto; }
-  .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #b88600; margin-bottom: 8px; }
-  .section-title { font-size: 1.6rem; color: #f5e6c0; font-weight: normal; margin-bottom: 6px; }
-  .section-sub { font-size: 0.85rem; color: #888; margin-bottom: 28px; line-height: 1.6; }
-
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-
-  .place-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; overflow: hidden; transition: border-color 0.2s; display: flex; flex-direction: column; }
-  .place-card:hover { border-color: #b8860055; }
-  .place-emoji { font-size: 2rem; padding: 20px 20px 10px; display: block; }
-  .place-card .info { padding: 0 16px 18px; flex: 1; display: flex; flex-direction: column; }
-  .place-card h4 { font-size: 0.95rem; color: #f5e6c0; font-weight: normal; margin-bottom: 4px; }
-  .place-card p { font-size: 0.8rem; color: #888; line-height: 1.5; }
-  .tag { display: inline-block; margin-top: 8px; background: #b8860015; color: #b88600; font-size: 10px; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.5px; }
-
-  .maps-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 12px; padding: 6px 12px;
-    background: #1e1400; border: 1px solid #b8860033; border-radius: 8px;
-    color: #b88600; font-size: 11px; text-decoration: none;
-    letter-spacing: 0.3px; transition: all 0.2s;
-    align-self: flex-start;
-  }
-  .maps-link:hover { background: #2a1c00; border-color: #b8860088; }
-  .maps-link::before { content: "📍"; font-size: 12px; }
-
-  .rest-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; transition: border-color 0.2s; margin-bottom: 14px; }
-  .rest-card:hover { border-color: #b8860055; }
-  .rest-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
-  .rest-card h4 { font-size: 0.95rem; color: #f5e6c0; font-weight: normal; margin-bottom: 3px; }
-  .rest-card p { font-size: 0.8rem; color: #888; line-height: 1.5; }
-  .rest-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-  .rest-tags span { font-size: 10px; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.3px; }
-  .t-local { background: #b8860015; color: #b88600; }
-  .t-seafood { background: #1a3a4a; color: #5ab4d6; }
-  .t-budget { background: #1a3a1a; color: #6bc96b; }
-  .t-premium { background: #3a1a2a; color: #d68fb4; }
-  .t-wine { background: #2a1a1a; color: #d48484; }
-  .t-fresh { background: #1a2a3a; color: #6baed6; }
-
-  .cave-card { background: #141414; border: 1px solid #ffffff0f; border-radius: 14px; padding: 20px; margin-bottom: 14px; transition: border-color 0.2s; }
-  .cave-card:hover { border-color: #b8860055; }
-  .cave-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
-  .cave-icon { font-size: 1.8rem; flex-shrink: 0; }
-  .cave-card h4 { font-size: 1rem; color: #f5e6c0; font-weight: normal; margin-bottom: 3px; }
-  .cave-card .founded { font-size: 0.75rem; color: #b88600; letter-spacing: 1px; text-transform: uppercase; }
-  .cave-card p { font-size: 0.8rem; color: #888; line-height: 1.6; margin-bottom: 10px; }
-  .cave-details { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-  .cave-detail { background: #1e1400; border: 1px solid #b8860022; border-radius: 8px; padding: 4px 10px; font-size: 11px; color: #c8b98a; }
-
-  .tip-box { background: #1e1400; border: 1px solid #b8860033; border-left: 3px solid #b88600; border-radius: 0 12px 12px 0; padding: 16px 20px; margin-top: 16px; }
-  .tip-box p { font-size: 0.85rem; color: #c8b98a; line-height: 1.7; }
-
-  .area-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e1400; border: 1px solid #b8860033; border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #b88600; margin-bottom: 20px; }
-
-  .return-section { background: #1a1400; border-top: 1px solid #b8860022; padding: 40px 24px; text-align: center; }
-  .return-section h3 { font-size: 1.3rem; color: #f5e6c0; font-weight: normal; margin-bottom: 10px; }
-  .return-section p { color: #888; font-size: 0.9rem; margin-bottom: 20px; }
-  .btn-return { display: inline-block; background: #b88600; color: #1a1200; border-radius: 10px; padding: 12px 28px; font-size: 0.95rem; text-decoration: none; font-family: Georgia, serif; }
-
-  .divider { border: none; border-top: 1px solid #ffffff08; margin: 0; }
-  .footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #555; }
-
-  .lang-switcher { position: absolute; top: 16px; right: 16px; display: flex; gap: 4px; background: #1e1400; border: 1px solid #b8860033; border-radius: 20px; padding: 3px; }
-  .lang-switcher a { font-size: 11px; padding: 5px 10px; color: #c8b98a; text-decoration: none; border-radius: 16px; letter-spacing: 1px; font-weight: bold; }
-  .lang-switcher a.active { background: #b88600; color: #1a1200; }
-</style>
+<title>Guia do Porto e Transferes | Visitar o Porto com Reserva de Viagem</title>
+<meta name="description" content="Descubra o Porto, restaurantes, Douro e vinho do Porto, além de transferes privados com páginas em português, inglês e francês.">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body>
-
-<div class="hero">
-  <div class="lang-switcher">
-    <a href="index.html">EN</a>
-    <a href="pt.html" class="active">PT</a>
-    <a href="fr.html">FR</a>
-  </div>
-  <div class="hero-badge">O seu guia pessoal</div>
-  <h1>Bem-vindo ao<br><span>Porto</span></h1>
-  <p>É um prazer recebê-lo. Esta página tem tudo o que precisa para aproveitar o melhor do Porto e arredores — monumentos, restaurantes e caves de vinho do Porto. Toque em 📍 para abrir a localização no Google Maps.</p>
-  <div class="contact-card">
-    <div class="avatar">CA</div>
-    <div class="contact-info">
-      <p>O seu motorista</p>
-      <h3>Carlos Alberto</h3>
-      <div class="contact-btns">
-        <a class="btn-wa" href="https://wa.me/351916261117" target="_blank">WhatsApp</a>
-        <a class="btn-call" href="tel:+351916261117">Ligar</a>
-      </div>
+<body data-lang="pt">
+<header class="site-header">
+  <div class="container nav-row">
+    <a class="brand" href="pt.html">
+      <span class="brand-label">Guia do Porto</span>
+      <span class="brand-name">Visitar o Porto e reservar transferes</span>
+    </a>
+    <nav class="nav-links">
+      <a class="active" href="pt.html">Início</a>
+      <a href="pt-places.html">Lugares</a>
+      <a href="pt-restaurants.html">Restaurantes</a>
+      <a href="pt-douro-wine.html">Douro e vinho</a>
+      <a href="pt-transfers.html">Transferes</a>
+      <a href="pt-booking.html">Reservar</a>
+    </nav>
+    <div class="lang-switcher">
+      <a href="index.html">EN</a>
+      <a class="active" href="pt.html">PT</a>
+      <a href="fr.html">FR</a>
     </div>
   </div>
-</div>
+</header>
 
-<div class="tabs">
-  <button class="tab-btn active" onclick="showTab('sights',this)">Monumentos</button>
-  <button class="tab-btn" onclick="showTab('restaurants',this)">Restaurantes</button>
-  <button class="tab-btn" onclick="showTab('matosinhos',this)">Matosinhos</button>
-  <button class="tab-btn" onclick="showTab('caves',this)">Caves do Vinho</button>
-</div>
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-panel">
+        <div class="eyebrow">Guia local e serviço privado</div>
+        <h1>Descubra o <span>Porto</span> com um site mais claro e profissional.</h1>
+        <p class="lead">O site passa a reunir os locais emblemáticos, sugestões de restaurantes, experiências no Douro e uma área de reserva de transferes com cálculo de distância por rota real para o passageiro perceber melhor o serviço antes de reservar.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="pt-places.html">Explorar o Porto</a>
+          <a class="btn btn-secondary" href="pt-booking.html">Calcular um transfer</a>
+        </div>
+      </div>
 
-<!-- MONUMENTOS -->
-<div id="tab-sights" class="tab-content active">
-<section>
-  <p class="section-label">Imperdíveis</p>
-  <h2 class="section-title">Locais icónicos do Porto</h2>
-  <p class="section-sub">Das ruelas da Ribeira à catedral no alto da colina — eis os locais que não pode perder.</p>
-  <div class="cards-grid">
+      <aside class="contact-panel">
+        <div>
+          <div class="contact-chip">24/7</div>
+          <h2>Contacto e reservas</h2>
+          <p>Viagens privadas, aeroporto, centro do Porto, Gaia, Matosinhos e pedidos para o Douro.</p>
+          <p class="contact-number">+351 916 261 117</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-whatsapp" href="https://wa.me/351916261117" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="btn btn-secondary" href="tel:+351916261117">Ligar</a>
+        </div>
+      </aside>
+    </div>
+  </section>
 
-    <div class="place-card"><span class="place-emoji">⛵</span><div class="info">
-      <h4>Ribeira</h4>
-      <p>A alma do Porto — casas coloridas ao longo do rio Douro. Perfeito ao pôr-do-sol.</p>
-      <span class="tag">Património UNESCO</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ribeira+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Nova estrutura</span>
+        <h2>O conteúdo está agora dividido por páginas mais claras.</h2>
+        <p>Quem visita o site consegue ver melhor a cidade, escolher onde comer, perceber o Douro e pedir um transfer sem ficar preso a uma única página longa.</p>
+      </div>
+      <div class="grid-3">
+        <article class="content-card">
+          <span class="icon">🏛️</span>
+          <h3>Lugares a visitar</h3>
+          <p>Ribeira, Sé, Clérigos, Bolhão, São Bento e outros pontos essenciais do centro do Porto.</p>
+          <div class="link-row"><a class="maps-link" href="pt-places.html">Abrir página</a></div>
+        </article>
+        <article class="content-card">
+          <span class="icon">🍽️</span>
+          <h3>Restaurantes</h3>
+          <p>Francesinha, bacalhau, restaurantes locais e opções mais baratas para o visitante.</p>
+          <div class="link-row"><a class="maps-link" href="pt-restaurants.html">Abrir página</a></div>
+        </article>
+        <article class="content-card">
+          <span class="icon">🍷</span>
+          <h3>Douro e vinho</h3>
+          <p>Rio Douro, caves em Gaia, Museu do Vinho do Porto e lugares emblemáticos com boa vista.</p>
+          <div class="link-row"><a class="maps-link" href="pt-douro-wine.html">Abrir página</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    <div class="place-card"><span class="place-emoji">⛪</span><div class="info">
-      <h4>Sé do Porto</h4>
-      <p>A catedral do século XII no alto da colina. Fachada românica, claustro gótico e uma das melhores vistas sobre a cidade antiga.</p>
-      <span class="tag">Marco histórico</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=S%C3%A9+do+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
+  <section class="section">
+    <div class="container stats-grid">
+      <div class="stats-card">
+        <strong>3</strong>
+        <p>Línguas preparadas para turistas internacionais.</p>
+      </div>
+      <div class="stats-card">
+        <strong>6</strong>
+        <p>Páginas principais com navegação mais profissional.</p>
+      </div>
+      <div class="stats-card">
+        <strong>Rota real</strong>
+        <p>Estimativa baseada em percurso real de condução.</p>
+      </div>
+      <div class="stats-card">
+        <strong>Contacto direto</strong>
+        <p>Telefone e WhatsApp sempre visíveis.</p>
+      </div>
+    </div>
+  </section>
 
-    <div class="place-card"><span class="place-emoji">🔔</span><div class="info">
-      <h4>Igreja e Torre dos Clérigos</h4>
-      <p>Igreja barroca e torre sineira de 75 m com vista panorâmica sobre toda a cidade. Suba ao topo para a melhor fotografia.</p>
-      <span class="tag">Vista panorâmica</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Torre+dos+Cl%C3%A9rigos+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
+  <section class="section">
+    <div class="container cta-banner">
+      <div>
+        <span class="section-tag">Publicidade</span>
+        <h2>O site fica preparado para promover transferes em páginas inglesas e francesas.</h2>
+        <p>Agora o serviço de transferes já tem páginas próprias e um simulador claro, o que ajuda bastante quando quiseres fazer publicidade para turistas estrangeiros.</p>
+      </div>
+      <a class="btn btn-primary" href="pt-transfers.html">Ver transferes</a>
+    </div>
+  </section>
+</main>
 
-    <div class="place-card"><span class="place-emoji">🥬</span><div class="info">
-      <h4>Mercado do Bolhão</h4>
-      <p>O icónico mercado oitocentista do Porto, recentemente recuperado. Peixe fresco, flores, fumeiros e pequenos balcões de prova — uma autêntica experiência local.</p>
-      <span class="tag">Vida local</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Mercado+do+Bolh%C3%A3o+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
-
-    <div class="place-card"><span class="place-emoji">📚</span><div class="info">
-      <h4>Livraria Lello</h4>
-      <p>Uma das livrarias mais bonitas do mundo. Imperdível para amantes de livros — compre o bilhete online para evitar a fila.</p>
-      <span class="tag">Reservar antes</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Livraria+Lello+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
-
-    <div class="place-card"><span class="place-emoji">🌉</span><div class="info">
-      <h4>Ponte Luís I</h4>
-      <p>A icónica ponte de ferro de dois tabuleiros. Atravesse o tabuleiro superior para uma vista deslumbrante sobre o rio.</p>
-      <span class="tag">Acesso livre</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ponte+Lu%C3%ADs+I+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
-
-    <div class="place-card"><span class="place-emoji">🏛️</span><div class="info">
-      <h4>Palácio da Bolsa</h4>
-      <p>Magnífica antiga bolsa de comércio do século XIX, com o impressionante Salão Árabe no interior. Visita guiada.</p>
-      <span class="tag">Visitas guiadas</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Pal%C3%A1cio+da+Bolsa+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
-
-    <div class="place-card"><span class="place-emoji">🚃</span><div class="info">
-      <h4>Estação de São Bento</h4>
-      <p>Mais do que uma estação — 20.000 azulejos contam a história de Portugal.</p>
-      <span class="tag">Entrada livre</span>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Esta%C3%A7%C3%A3o+S%C3%A3o+Bento+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-    </div></div>
-
+<footer class="site-footer">
+  <div class="container footer-row">
+    <p>Guia do Porto · Porto, Gaia, Matosinhos, Douro e aeroporto.</p>
+    <p>Contacto: +351 916 261 117</p>
   </div>
-</section>
-</div>
-
-<!-- RESTAURANTES PORTO -->
-<div id="tab-restaurants" class="tab-content">
-<section>
-  <p class="section-label">Onde comer</p>
-  <h2 class="section-title">Restaurantes no Porto</h2>
-  <p class="section-sub">Da francesinha icónica à alta cozinha — o Porto tem opções para todos os gostos e bolsos.</p>
-
-  <div class="rest-card"><div class="rest-icon">🥩</div><div style="flex:1">
-    <h4>Café Santiago</h4>
-    <p>A casa da lendária <em>francesinha</em> — a sandes mais famosa do Porto. Experiência obrigatória.</p>
-    <div class="rest-tags"><span class="t-local">Clássico local</span><span class="t-budget">Preço médio</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+Santiago+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🍷</div><div style="flex:1">
-    <h4>Adega São Nicolau</h4>
-    <p>Petiscos tradicionais portugueses no coração da Ribeira. Prove o bacalhau acompanhado de um bom vinho.</p>
-    <div class="rest-tags"><span class="t-local">Tradicional</span><span class="t-wine">Boa carta</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Adega+S%C3%A3o+Nicolau+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🐟</div><div style="flex:1">
-    <h4>DOP — Rui Paula</h4>
-    <p>Cozinha portuguesa moderna no Palácio das Artes. Refinada, sazonal e inesquecível.</p>
-    <div class="rest-tags"><span class="t-premium">Alta cozinha</span><span class="t-local">Portuguesa</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=DOP+Rui+Paula+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">☕</div><div style="flex:1">
-    <h4>Café Majestic</h4>
-    <p>Café histórico de estilo arte nova, aberto desde 1921. Tome um café e um pastel de nata em grande estilo.</p>
-    <div class="rest-tags"><span class="t-local">Histórico</span><span class="t-budget">Café</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Majestic+Caf%C3%A9+Porto" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="tip-box"><p>💡 <strong>Dica local:</strong> Pergunte sempre pelo <em>prato do dia</em> — costuma ser o mais fresco, autêntico e com melhor relação qualidade-preço.</p></div>
-</section>
-</div>
-
-<!-- MATOSINHOS -->
-<div id="tab-matosinhos" class="tab-content">
-<section>
-  <p class="section-label">À beira-mar</p>
-  <h2 class="section-title">Matosinhos</h2>
-  <p class="section-sub">A apenas 10 minutos do centro do Porto, Matosinhos é a capital do peixe em Portugal. O peixe vem direto do Atlântico e é grelhado em brasa à porta dos restaurantes — sobretudo na lendária <strong>Rua Heróis de França</strong>, a famosa "rua dos grelhados", a poucos passos da praia.</p>
-  <div class="area-badge">📍 ~10 min do Porto · Peixe atlântico</div>
-
-  <div class="rest-card"><div class="rest-icon">🐙</div><div style="flex:1">
-    <h4>Restaurante Gavina</h4>
-    <p>Um dos restaurantes de mariscos mais queridos de Matosinhos. Famoso pelo peixe grelhado, salada de polvo e arroz de marisco.</p>
-    <div class="rest-tags"><span class="t-seafood">Marisco</span><span class="t-local">Favorito local</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Gavina+Matosinhos" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🦐</div><div style="flex:1">
-    <h4>O Lusitano</h4>
-    <p>Um clássico verdadeiramente local — doses generosas de sardinhas, robalo e marisco a preço honesto. Sempre cheio à hora do almoço.</p>
-    <div class="rest-tags"><span class="t-seafood">Peixe grelhado</span><span class="t-budget">Bom preço</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=O+Lusitano+Matosinhos" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🔥</div><div style="flex:1">
-    <h4>Salta o Muro</h4>
-    <p>Restaurante familiar com grelhador na Rua Heróis de França. Pequeno, simples, cheio de gente local — peça o peixe fresco do dia.</p>
-    <div class="rest-tags"><span class="t-fresh">Brasa</span><span class="t-local">Favorito local</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Salta+o+Muro+Matosinhos" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🐟</div><div style="flex:1">
-    <h4>Tito</h4>
-    <p>Uma instituição perto da praia de Matosinhos. Pequeno, sem pretensões — apenas peixe grelhado incrível, marisco fresco e um copo de vinho verde.</p>
-    <div class="rest-tags"><span class="t-seafood">Marisco</span><span class="t-local">Pequeno e adorado</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Tito+Matosinhos" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🦀</div><div style="flex:1">
-    <h4>Marisqueira Antiga</h4>
-    <p>Peixe grelhado em brasa na Rua Heróis de França — escolha o seu peixe ao balcão. Doses generosas e atendimento familiar.</p>
-    <div class="rest-tags"><span class="t-fresh">Peixe fresco</span><span class="t-local">Tradicional</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Marisqueira+Antiga+Matosinhos" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="rest-card"><div class="rest-icon">🌊</div><div style="flex:1">
-    <h4>Sea Me (Matosinhos)</h4>
-    <p>Visão contemporânea do marisco português. Pratos criativos, excelente carta de vinhos e ambiente moderno.</p>
-    <div class="rest-tags"><span class="t-premium">Contemporâneo</span><span class="t-seafood">Marisco</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Sea+Me+Matosinhos" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div></div>
-
-  <div class="tip-box"><p>🐟 <strong>Melhor altura para visitar:</strong> Vá almoçar a meio da semana para evitar filas. Caminhe pela <strong>Rua Heróis de França</strong> e escolha o restaurante com mais gente local — é sempre bom sinal. Não saia sem provar <em>percebes</em>, se houver!</p></div>
-
-  <div class="tip-box" style="margin-top:14px"><p>📍 <a class="maps-link" style="margin:0" href="https://www.google.com/maps/search/?api=1&query=Rua+Her%C3%B3is+de+Fran%C3%A7a+Matosinhos" target="_blank" rel="noopener">Ver Rua Heróis de França</a></p></div>
-</section>
-</div>
-
-<!-- CAVES -->
-<div id="tab-caves" class="tab-content">
-<section>
-  <p class="section-label">Vila Nova de Gaia</p>
-  <h2 class="section-title">Caves do Vinho do Porto</h2>
-  <p class="section-sub">Do outro lado do rio Douro, Vila Nova de Gaia acolhe as melhores caves de Vinho do Porto do mundo. Faça uma visita guiada, prove os vinhos e desfrute da vista deslumbrante sobre o rio.</p>
-  <div class="area-badge">📍 Vila Nova de Gaia · Atravessar a Ponte Luís I</div>
-
-  <div class="cave-card">
-    <div class="cave-header"><div class="cave-icon">🍾</div><div><h4>Graham's 1890</h4><div class="founded">Fundada em 1820</div></div></div>
-    <p>Localizada na encosta com uma das melhores vistas sobre o Porto. Excelentes visitas às caves e um restaurante magnífico.</p>
-    <div class="cave-details"><span class="cave-detail">Visita + prova</span><span class="cave-detail">Restaurante</span><span class="cave-detail">Vista panorâmica</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Graham%27s+Port+Lodge+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div>
-
-  <div class="cave-card">
-    <div class="cave-header"><div class="cave-icon">🏆</div><div><h4>Taylor's</h4><div class="founded">Fundada em 1692</div></div></div>
-    <p>Uma das casas mais antigas e prestigiadas do Vinho do Porto. Localização deslumbrante no alto, salas de prova elegantes e Vintages excecionais.</p>
-    <div class="cave-details"><span class="cave-detail">Visita guiada</span><span class="cave-detail">Wine bar</span><span class="cave-detail">Caves históricas</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Taylor%27s+Port+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div>
-
-  <div class="cave-card">
-    <div class="cave-header"><div class="cave-icon">🎭</div><div><h4>Sandeman</h4><div class="founded">Fundada em 1790</div></div></div>
-    <p>A cave mais icónica de Gaia, reconhecida em todo o mundo pelo logótipo do Don de capa preta. Excelentes visitas guiadas e museu interativo.</p>
-    <div class="cave-details"><span class="cave-detail">Museu</span><span class="cave-detail">Várias provas</span><span class="cave-detail">Ideal para iniciantes</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Sandeman+Cellars+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div>
-
-  <div class="cave-card">
-    <div class="cave-header"><div class="cave-icon">🌿</div><div><h4>Ramos Pinto</h4><div class="founded">Fundada em 1880</div></div></div>
-    <p>Famosa pelos cartazes arte nova e pelo belíssimo museu. Uma experiência mais íntima, com excelentes Ruby e Tawny.</p>
-    <div class="cave-details"><span class="cave-detail">Museu de arte</span><span class="cave-detail">Visita íntima</span><span class="cave-detail">Junto ao rio</span></div>
-    <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ramos+Pinto+Vila+Nova+de+Gaia" target="_blank" rel="noopener">Abrir no Maps</a>
-  </div>
-
-  <div class="tip-box"><p>🍷 <strong>Dica local:</strong> Reserve a sua visita online com antecedência — os melhores horários esgotam depressa. Depois da visita, passeie pela marginal de Gaia e beba um copo de Vinho do Porto com vista para o Porto — mágico ao pôr-do-sol.</p></div>
-</section>
-</div>
-
-<hr class="divider">
-<div class="return-section">
-  <h3>Precisa de transporte?</h3>
-  <p>Porto · Matosinhos · Gaia · Aeroporto — disponível durante toda a sua estadia.</p>
-  <a class="btn-return" href="https://wa.me/351916261117?text=Ol%C3%A1%20Carlos%2C%20gostaria%20de%20marcar%20uma%20viagem." target="_blank">Marcar via WhatsApp</a>
-</div>
-<div class="footer">Feito com carinho para os meus passageiros &nbsp;·&nbsp; Carlos Alberto &nbsp;·&nbsp; Porto, Portugal</div>
-
-<script>
-function showTab(name, btn) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
-}
-</script>
+</footer>
 </body>
 </html>

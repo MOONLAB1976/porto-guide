@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Reservar Transfer no Porto | Cálculo de Rota e Valor</title><meta name="description" content="Calcule um transfer no Porto com base em rota real e envie o pedido por WhatsApp."><link rel="stylesheet" href="styles.css"></head>
+<body data-lang="pt">
+<header class="site-header"><div class="container nav-row"><a class="brand" href="pt.html"><span class="brand-label">Guia do Porto</span><span class="brand-name">Reservar viagem</span></a><nav class="nav-links"><a href="pt.html">Início</a><a href="pt-places.html">Lugares</a><a href="pt-restaurants.html">Restaurantes</a><a href="pt-douro-wine.html">Douro e vinho</a><a href="pt-transfers.html">Transferes</a><a class="active" href="pt-booking.html">Reservar</a></nav><div class="lang-switcher"><a href="booking.html">EN</a><a class="active" href="pt-booking.html">PT</a><a href="fr-booking.html">FR</a></div></div></header>
+<main>
+<section class="page-hero"><div class="container hero-panel"><div class="eyebrow">Estimativa antes da reserva</div><h1>Calcular um transfer com base numa <span>rota real</span>.</h1><p class="lead">Introduza origem e destino, escolha o tipo de serviço e veja uma estimativa mais clara antes de falar com o motorista.</p></div></section>
+<section class="section"><div class="container booking-layout">
+  <div class="booking-box">
+    <form id="booking-form">
+      <div class="field"><label for="pickup">Morada de recolha</label><input id="pickup" name="pickup" placeholder="Aeroporto, hotel ou rua no Porto" required></div>
+      <div class="field"><label for="dropoff">Morada de destino</label><input id="dropoff" name="dropoff" placeholder="Destino no Porto, Gaia, Matosinhos ou Douro" required></div>
+      <div class="field-grid">
+        <div class="field"><label for="tripType">Tipo de serviço</label><select id="tripType" name="tripType"><option value="city">Transfer urbano</option><option value="airport">Transfer aeroporto</option><option value="douro">Transfer Douro / vinho</option></select></div>
+        <div class="field"><label for="passengers">Passageiros</label><select id="passengers" name="passengers"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="date">Data</label><input id="date" name="date" type="date"></div>
+        <div class="field"><label for="time">Hora</label><input id="time" name="time" type="time"></div>
+      </div>
+      <div class="field"><label for="phone">Número de contacto</label><input id="phone" name="phone" type="tel" placeholder="+351 ..." required></div>
+      <p class="helper">Esta estimativa usa um serviço público de rotas para calcular a distância provável antes da confirmação final por WhatsApp.</p>
+      <button class="btn btn-primary" type="submit">Calcular estimativa</button>
+      <p class="helper" id="booking-status" aria-live="polite"></p>
+    </form>
+  </div>
+  <div class="result-box">
+    <div class="result-empty active">
+      <h2 id="result-title-empty">Estimativa da rota</h2>
+      <p id="result-empty-text">Preencha os detalhes da viagem para calcular distância, duração e valor estimado antes da reserva.</p>
+      <div class="note-box"><p id="pricing-rule">Taxa base e preço por quilómetro.</p><p id="pricing-night"></p><p id="pricing-airport"></p></div>
+    </div>
+    <div class="result-ready">
+      <h2 id="result-title-ready">Viagem estimada</h2>
+      <p id="estimate-label">Total estimado</p>
+      <div class="estimate-price" id="estimate-price">€0</div>
+      <div class="summary-list">
+        <div class="summary-item"><span id="label-distance">Distância</span><span id="summary-distance"></span></div>
+        <div class="summary-item"><span id="label-duration">Tempo estimado</span><span id="summary-duration"></span></div>
+        <div class="summary-item"><span id="label-pricing">Modelo de preço</span><span id="summary-pricing"></span></div>
+        <div class="summary-item"><span id="label-type">Tipo de serviço</span><span id="summary-type"></span></div>
+        <div class="summary-item"><span id="label-contact">Número de contacto</span><span id="summary-contact"></span></div>
+        <div class="summary-item"><span id="label-passengers">Passageiros</span><span id="summary-passengers"></span></div>
+        <div class="summary-item"><span id="label-date">Data</span><span id="summary-date"></span></div>
+      </div>
+      <a class="btn btn-whatsapp" id="request-link" href="https://wa.me/351916261117" target="_blank" rel="noopener noreferrer">Pedir este transfer por WhatsApp</a>
+      <div class="note-box"><p id="result-note"></p></div>
+    </div>
+  </div>
+</div></section>
+</main>
+<script src="booking.js"></script>
+</body>
+</html>
